@@ -1,0 +1,53 @@
+{
+  "name": "gfg-feature-toggle",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Libraries for feature toggle",
+  "main": "",
+  "engines": {
+    "node": ">=4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:GFG/gfg-feature-toggle.git"
+  },
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "aws-sdk": "^2.40.0",
+    "gfg-nodejs-libary-manofletters": "git+ssh://git@github.com:GFG/manofletters.git#v0.0.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-latest": "^6.24.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.17.1",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-import": "^2.2.0",
+    "gfg-cicd-scripts": "git+ssh://git@github.com/GFG/gfg-cicd-scripts.git#v1.0.1",
+    "github-changes": "^1.1.0",
+    "istanbul": "1.1.0-alpha.1",
+    "mocha": "^3.2.0",
+    "pre-commit": "^1.1.2",
+    "sinon": "^2.2.0"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register src/**/*.test.js",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --compilers js:babel-core/register --colors --recursive src/**/*.test.js",
+    "build": "rm -rf lib && babel ./src -d ./lib --ignore *.test.js",
+    "eslint": "sh node_modules/gfg-cicd-scripts/commit/pre-commit-eslint.sh",
+    "release": "sh ops/release.sh",
+    "addBuild": "npm run build && git add .",
+    "bumpVersion": "npm --no-git-tag-version version patch"
+  },
+  "pre-commit": [
+    "eslint",
+    "coverage"
+  ],
+  "author": "GFG Pricing Engine Team",
+  "license": "ISC"
+}
